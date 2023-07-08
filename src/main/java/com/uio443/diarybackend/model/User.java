@@ -15,11 +15,12 @@ public class User {
     private String username;
     private String email;
     private String pfpLink;
-    private Date birthdate;
+    private Date birthday;
     private HiddenStatus hiddenStatus;
 
     public User() {
         this.hiddenStatus = HiddenStatus.Private;
+        this.pfpLink = "https://a.ppy.sh/12025261?1673568592.jpeg";
     }
 
 
@@ -51,12 +52,12 @@ public class User {
         this.pfpLink = pfpLink;
     }
 
-    public Date getBirthdate() {
-        return birthdate;
+    public Date getBirthday() {
+        return birthday;
     }
 
-    public void setBirthdate(Date birthdate) {
-        this.birthdate = birthdate;
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 
     public HiddenStatus getHiddenStatus() {

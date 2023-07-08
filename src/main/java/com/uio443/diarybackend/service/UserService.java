@@ -9,9 +9,6 @@ import com.uio443.diarybackend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.Optional;
-
 @Service
 public class UserService {
 
@@ -23,26 +20,22 @@ public class UserService {
     }
 
     public User getUserById(Long id) {
-        User user = userRepository.findUserById(id).orElseThrow(() -> new UserNotFoundException(id));
-        return user;
+        return userRepository.findUserById(id).orElseThrow(() -> new UserNotFoundException(id));
     }
 
     public User getUserByUsername(String username) {
-        User user = userRepository.findUserByUsername(username).orElseThrow(() -> new UserNotFoundException("Username", username));
-        return user;
+        return userRepository.findUserByUsername(username).orElseThrow(() -> new UserNotFoundException("Username", username));
     }
 
     public User getUserByEmail(String email) {
-        User user = userRepository.findUserByEmail(email).orElseThrow(() -> new UserNotFoundException("Email", email));
-        return user;
+        return userRepository.findUserByEmail(email).orElseThrow(() -> new UserNotFoundException("Email", email));
     }
 
     public User addUser(User user) {
         if (userRepository.existsByUsername(user.getUsername())) throw new UsernameNotUniqueException();
         if (userRepository.existsByEmail(user.getEmail())) throw new EmailNotUniqueException();
 
-        User newUser = userRepository.save(user);
-        return newUser;
+        return userRepository.save(user);
     }
 
     public void deleteUserById(Long id) {
@@ -61,17 +54,17 @@ public class UserService {
         String newPfp = user.getPfpLink();
         HiddenStatus newHiddenStatus = user.getHiddenStatus();
 
-        if (newUsername != null && newUsername != "" && !(newUsername.equals(oldUser.getUsername()))) {
+        if (newUsername != null && newUsername.equals("") && !(newUsername.equals(oldUser.getUsername()))) {
             if(userRepository.existsByUsername(newUsername)) throw new UsernameNotUniqueException();
             oldUser.setUsername(newUsername);
         }
 
-        if (newEmail != null && newEmail != "" && !(newEmail.equals(oldUser.getEmail()))) {
+        if (newEmail != null && newEmail.equals("") && !(newEmail.equals(oldUser.getEmail()))) {
             if(userRepository.existsByEmail(newEmail)) throw new EmailNotUniqueException();
             oldUser.setEmail(newEmail);
         }
 
-        if (newPfp != null && newPfp != "" && !(newPfp.equals(oldUser.getPfpLink()))) {
+        if (newPfp != null && newPfp.equals("") && !(newPfp.equals(oldUser.getPfpLink()))) {
             oldUser.setPfpLink(newPfp);
         }
 
