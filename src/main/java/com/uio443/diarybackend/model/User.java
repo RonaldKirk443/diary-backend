@@ -1,30 +1,31 @@
 package com.uio443.diarybackend.model;
 
 import com.uio443.diarybackend.enums.HiddenStatus;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.Date;
 
 @Entity
+@Table(name = "user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Column(nullable = false, updatable = false)
+    private Long id;
     private String username;
     private String email;
     private String pfpLink;
-    private int age;
+    private Date birthday;
     private HiddenStatus hiddenStatus;
 
-    public User() { }
+    public User() {
+        this.hiddenStatus = HiddenStatus.Private;
+        this.pfpLink = "https://a.ppy.sh/12025261?1673568592.jpeg";
+    }
 
-    public User(String username, String email, String pfpLink, int age, HiddenStatus hiddenStatus) {
-        this.username = username;
-        this.email = email;
-        this.pfpLink = pfpLink;
-        this.age = age;
-        this.hiddenStatus = hiddenStatus;
+
+    public Long getId() {
+        return id;
     }
 
     public String getUsername() {
@@ -51,12 +52,12 @@ public class User {
         this.pfpLink = pfpLink;
     }
 
-    public int getAge() {
-        return age;
+    public Date getBirthday() {
+        return birthday;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 
     public HiddenStatus getHiddenStatus() {
