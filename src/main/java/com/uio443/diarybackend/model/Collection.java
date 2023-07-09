@@ -16,7 +16,7 @@ public class Collection {
     // title, description, background img, status
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
     Long id;
     @Id
@@ -25,12 +25,21 @@ public class Collection {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     User user;
+    @Column(nullable = false)
     String title;
+    @Column(nullable = false)
     String backgroundImgLink;
+    @Column(nullable = false)
     HiddenStatus hiddenStatus;
 
     public Collection() {
-        this.hiddenStatus = HiddenStatus.Private;
+        this.hiddenStatus = HiddenStatus.Default;
+        this.backgroundImgLink = "";
+
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public User getUser() {

@@ -10,13 +10,13 @@ public class CollectionUserId implements Serializable {
     Long id;
     User user;
 
-    public CollectionUserId() {
-    }
+    public CollectionUserId() {}
 
     public CollectionUserId(Long id, User user) {
         this.id = id;
         this.user = user;
     }
+
 
     public boolean equals(CollectionUserId collectionUserId) {
         if (this.id.equals(collectionUserId.id) && this.user.getId().equals(collectionUserId.user.getId())) {

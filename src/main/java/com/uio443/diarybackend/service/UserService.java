@@ -35,6 +35,8 @@ public class UserService {
         if (userRepository.existsByUsername(user.getUsername())) throw new UsernameNotUniqueException();
         if (userRepository.existsByEmail(user.getEmail())) throw new EmailNotUniqueException();
 
+        user.setPfpLink("https://a.ppy.sh/12025261?1673568592.jpeg");
+        user.setHiddenStatus(HiddenStatus.Default);
         return userRepository.save(user);
     }
 
@@ -54,21 +56,21 @@ public class UserService {
         String newPfp = user.getPfpLink();
         HiddenStatus newHiddenStatus = user.getHiddenStatus();
 
-        if (newUsername != null && newUsername.equals("") && !(newUsername.equals(oldUser.getUsername()))) {
+        if (newUsername != null && !newUsername.equals("") && !(newUsername.equals(oldUser.getUsername()))) {
             if(userRepository.existsByUsername(newUsername)) throw new UsernameNotUniqueException();
             oldUser.setUsername(newUsername);
         }
 
-        if (newEmail != null && newEmail.equals("") && !(newEmail.equals(oldUser.getEmail()))) {
+        if (newEmail != null && !newEmail.equals("") && !(newEmail.equals(oldUser.getEmail()))) {
             if(userRepository.existsByEmail(newEmail)) throw new EmailNotUniqueException();
             oldUser.setEmail(newEmail);
         }
 
-        if (newPfp != null && newPfp.equals("") && !(newPfp.equals(oldUser.getPfpLink()))) {
+        if (newPfp != null && !newPfp.equals("") && !(newPfp.equals(oldUser.getPfpLink()))) {
             oldUser.setPfpLink(newPfp);
         }
 
-        if (newHiddenStatus != null && newHiddenStatus != oldUser.getHiddenStatus()) {
+        if (newHiddenStatus != null && newHiddenStatus != oldUser.getHiddenStatus() && newHiddenStatus != HiddenStatus.Default) {
             oldUser.setHiddenStatus(newHiddenStatus);
         }
 
