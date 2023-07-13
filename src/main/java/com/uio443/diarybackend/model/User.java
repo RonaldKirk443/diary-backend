@@ -2,7 +2,6 @@ package com.uio443.diarybackend.model;
 
 import com.uio443.diarybackend.enums.HiddenStatus;
 import jakarta.persistence.*;
-
 import java.util.Date;
 
 @Entity
@@ -12,15 +11,18 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
     private Long id;
+    @Column(nullable = false)
     private String username;
+    @Column(nullable = false)
     private String email;
     private String pfpLink;
+    @Column(nullable = false)
     private Date birthday;
     private HiddenStatus hiddenStatus;
 
     public User() {
-        this.hiddenStatus = HiddenStatus.Private;
-        this.pfpLink = "https://a.ppy.sh/12025261?1673568592.jpeg";
+        this.hiddenStatus = HiddenStatus.Default;
+        this.pfpLink = "";
     }
 
 
