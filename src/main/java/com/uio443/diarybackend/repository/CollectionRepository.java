@@ -19,7 +19,7 @@ public interface CollectionRepository extends JpaRepository<Collection, Long> {
     void deleteCollectionById(Long id);
 
     @Transactional
-    @Query("SELECT e, e.user.id from Collection e where e.id = ?1")
+    @Query("SELECT e from Collection e where e.id = ?1")
     Optional<Collection> findCollectionById(Long id);
 
     @Transactional
@@ -30,7 +30,7 @@ public interface CollectionRepository extends JpaRepository<Collection, Long> {
     // if we allow user to have multiple collections of same title
     @Transactional
     @Query("SELECT e from Collection e where e.user.id = ?1 and e.title = ?2")
-    Optional<Collection> findCollectionByTitleAndUserId(Long userId, String title);
+    Optional<List<Collection>> findCollectionByTitleAndUserId(Long userId, String title);
 
     @Transactional
     @Query("SELECT e from Collection e where e.user.id = ?1")

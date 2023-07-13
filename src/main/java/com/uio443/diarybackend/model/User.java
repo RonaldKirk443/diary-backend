@@ -2,7 +2,6 @@ package com.uio443.diarybackend.model;
 
 import com.uio443.diarybackend.enums.HiddenStatus;
 import jakarta.persistence.*;
-
 import java.util.Date;
 
 @Entity

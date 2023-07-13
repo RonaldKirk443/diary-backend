@@ -1,10 +1,9 @@
 package com.uio443.diarybackend.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.uio443.diarybackend.enums.HiddenStatus;
 import com.uio443.diarybackend.primarykeys.CollectionUserId;
 import jakarta.persistence.*;
-import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -12,10 +11,6 @@ import org.hibernate.annotations.OnDeleteAction;
 @IdClass(CollectionUserId.class)
 @Table(name = "collection")
 public class Collection {
-    // ID collection
-    // ID user
-    // title, description, background img, status
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
@@ -24,9 +19,8 @@ public class Collection {
     @JoinColumn(name = "userId", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     User user;
-    Long userId;
     @Column(nullable = false)
     String title;
     String backgroundImgLink;
@@ -36,14 +30,6 @@ public class Collection {
     public Collection() {
         this.hiddenStatus = HiddenStatus.Default;
         this.backgroundImgLink = "";
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Long getUserId() {
-        return this.userId;
     }
 
     public Long getId() {

@@ -49,8 +49,8 @@ public class CollectionController {
 
 
     @GetMapping("/userId/{userId}/title/{title}")
-    public ResponseEntity<Collection> getCollectionByTitleAndUserId(@PathVariable("title") String title, @PathVariable("userId") Long userId) {
-        Collection collection = collectionService.getCollectionByTitleAndUserId(title, userId);
+    public ResponseEntity<List<Collection>> getCollectionByTitleAndUserId(@PathVariable("title") String title, @PathVariable("userId") Long userId) {
+        List<Collection> collection = collectionService.getCollectionByTitleAndUserId(title, userId);
 
         return new ResponseEntity<>(collection, HttpStatus.OK);
     }

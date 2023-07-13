@@ -48,7 +48,7 @@ public class CollectionService {
     }
 
 
-    public Collection getCollectionByTitleAndUserId(String title, Long userId) {
+    public List<Collection> getCollectionByTitleAndUserId(String title, Long userId) {
         if (!userRepository.existsById(userId)) throw new UserNotFoundException(userId);
 
         return collectionRepository.findCollectionByTitleAndUserId(userId, title).orElseThrow(() -> new CollectionNotFoundException(title, userId));
