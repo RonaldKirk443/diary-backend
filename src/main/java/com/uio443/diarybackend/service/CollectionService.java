@@ -67,7 +67,6 @@ public class CollectionService {
         String newBackgroundImgLink = collection.getBackgroundImgLink();
         HiddenStatus newHiddenStatus = collection.getHiddenStatus();
 
-
         if (newTitle != null && !newTitle.equals("") && !newTitle.equals(oldCollection.getTitle())) {
             oldCollection.setTitle(newTitle);
         }
@@ -76,13 +75,9 @@ public class CollectionService {
             oldCollection.setBackgroundImgLink(newBackgroundImgLink);
         }
 
-
         if (newHiddenStatus != null && newHiddenStatus != oldCollection.getHiddenStatus() && newHiddenStatus != HiddenStatus.Default) {
             oldCollection.setHiddenStatus(newHiddenStatus);
-            System.out.println("Stuff");
         }
-
-
 
         return collectionRepository.save(oldCollection);
 

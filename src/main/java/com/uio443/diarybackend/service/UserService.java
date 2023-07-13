@@ -36,7 +36,7 @@ public class UserService {
         if (userRepository.existsByEmail(user.getEmail())) throw new EmailNotUniqueException();
 
         user.setPfpLink("https://a.ppy.sh/12025261?1673568592.jpeg");
-        user.setHiddenStatus(HiddenStatus.Default);
+        user.setHiddenStatus(HiddenStatus.Private);
         return userRepository.save(user);
     }
 
@@ -48,7 +48,6 @@ public class UserService {
 
     public User updateUser(User user) {
         Long id = user.getId();
-        System.out.println(id);
         User oldUser = userRepository.findUserById(id).orElseThrow(() -> new UserNotFoundException(id));
 
         String newUsername = user.getUsername();

@@ -17,14 +17,12 @@ public class CollectionUserId implements Serializable {
         this.user = user;
     }
 
-
     public boolean equals(CollectionUserId collectionUserId) {
         if (this.id.equals(collectionUserId.id) && this.user.getId().equals(collectionUserId.user.getId())) {
             return true;
         }
         return false;
     }
-
 
     @Override
     public int hashCode() {

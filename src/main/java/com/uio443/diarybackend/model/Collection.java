@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.uio443.diarybackend.enums.HiddenStatus;
 import com.uio443.diarybackend.primarykeys.CollectionUserId;
 import jakarta.persistence.*;
+import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -25,9 +26,9 @@ public class Collection {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     User user;
+    Long userId;
     @Column(nullable = false)
     String title;
-    @Column(nullable = false)
     String backgroundImgLink;
     @Column(nullable = false)
     HiddenStatus hiddenStatus;
@@ -35,7 +36,14 @@ public class Collection {
     public Collection() {
         this.hiddenStatus = HiddenStatus.Default;
         this.backgroundImgLink = "";
+    }
 
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public Long getUserId() {
+        return this.userId;
     }
 
     public Long getId() {

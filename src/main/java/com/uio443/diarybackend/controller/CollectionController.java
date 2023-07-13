@@ -19,7 +19,7 @@ public class CollectionController {
         this.collectionService = collectionService;
     }
 
-    @PostMapping("/{userId}/add")
+    @PostMapping("/add/{userId}")
     public ResponseEntity<Collection> addCollection(@PathVariable("userId") Long userId, @RequestBody Collection collection) {
         Collection newCollection = collectionService.addCollection(userId, collection);
         return new ResponseEntity<>(newCollection, HttpStatus.CREATED);
@@ -42,12 +42,13 @@ public class CollectionController {
     @GetMapping("/collectionId/{id}")
     public ResponseEntity<Collection> getCollectionById(@PathVariable Long id) {
         Collection collection = collectionService.getCollectionById(id);
+        System.out.println(collection.getUser().getId());
 
         return new ResponseEntity<>(collection, HttpStatus.OK);
     }
 
 
-    @GetMapping("/title/{title}/userId/{userId}")
+    @GetMapping("/userId/{userId}/title/{title}")
     public ResponseEntity<Collection> getCollectionByTitleAndUserId(@PathVariable("title") String title, @PathVariable("userId") Long userId) {
         Collection collection = collectionService.getCollectionByTitleAndUserId(title, userId);
 
