@@ -26,6 +26,12 @@ public class CollectionService {
 
     public Collection addCollection(Long userId, Collection collection) {
         collection.setUser(userRepository.findUserById(userId).orElseThrow(() -> new UserNotFoundException(userId)));
+        if (collection.getTitle() == null) {
+            collection.setTitle("Untitled Collection");
+        }
+        if (collection.getDescription() == null) {
+            collection.setDescription("");
+        }
         collection.setHiddenStatus(HiddenStatus.Private);
         collection.setBackgroundImgLink("https://a.ppy.sh/12025261?1673568592.jpeg");
         return collectionRepository.save(collection);
@@ -80,7 +86,9 @@ public class CollectionService {
             oldCollection.setHiddenStatus(newHiddenStatus);
         }
 
-//        if (newDescription != null && !newDescription.equals(""))
+        if (newDescription != null && !newDescription.equals(oldCollection.getDescription())) {
+            oldCollection.setDescription(newDescription);
+        }
 
         return collectionRepository.save(oldCollection);
 

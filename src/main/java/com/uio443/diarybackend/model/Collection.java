@@ -30,7 +30,7 @@ public class Collection {
 
 
     public Collection() {
-        this.title = "Untitled Collection";
+        this.title = null;
         this.hiddenStatus = null;
         this.backgroundImgLink = null;
         this.description = null;
