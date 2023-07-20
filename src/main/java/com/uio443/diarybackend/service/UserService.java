@@ -65,7 +65,7 @@ public class UserService {
             oldUser.setEmail(newEmail);
         }
 
-        if (newPfp != null && !newPfp.equals("") && !(newPfp.equals(oldUser.getPfpLink()))) {
+        if (newPfp != null && !(newPfp.equals(oldUser.getPfpLink()))) {
             oldUser.setPfpLink(newPfp);
         }
 

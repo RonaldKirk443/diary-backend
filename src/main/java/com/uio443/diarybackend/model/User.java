@@ -22,9 +22,8 @@ public class User {
 
     public User() {
         this.hiddenStatus = HiddenStatus.Default;
-        this.pfpLink = "";
+        this.pfpLink = null;
     }
-
 
     public Long getId() {
         return id;
