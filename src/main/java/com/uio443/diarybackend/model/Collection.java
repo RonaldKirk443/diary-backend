@@ -23,13 +23,26 @@ public class Collection {
     User user;
     @Column(nullable = false)
     String title;
+    String description;
     String backgroundImgLink;
     @Column(nullable = false)
     HiddenStatus hiddenStatus;
 
+
     public Collection() {
-        this.hiddenStatus = HiddenStatus.Default;
-        this.backgroundImgLink = "";
+        this.title = null;
+        this.hiddenStatus = null;
+        this.backgroundImgLink = null;
+        this.description = null;
+    }
+
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Long getId() {

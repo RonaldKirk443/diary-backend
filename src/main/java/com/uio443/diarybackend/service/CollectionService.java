@@ -26,6 +26,12 @@ public class CollectionService {
 
     public Collection addCollection(Long userId, Collection collection) {
         collection.setUser(userRepository.findUserById(userId).orElseThrow(() -> new UserNotFoundException(userId)));
+        if (collection.getTitle() == null) {
+            collection.setTitle("Untitled Collection");
+        }
+        if (collection.getDescription() == null) {
+            collection.setDescription("");
+        }
         collection.setHiddenStatus(HiddenStatus.Private);
         collection.setBackgroundImgLink("https://a.ppy.sh/12025261?1673568592.jpeg");
         return collectionRepository.save(collection);
@@ -66,17 +72,22 @@ public class CollectionService {
         String newTitle = collection.getTitle();
         String newBackgroundImgLink = collection.getBackgroundImgLink();
         HiddenStatus newHiddenStatus = collection.getHiddenStatus();
+        String newDescription = collection.getDescription();
 
         if (newTitle != null && !newTitle.equals("") && !newTitle.equals(oldCollection.getTitle())) {
             oldCollection.setTitle(newTitle);
         }
 
-        if (newBackgroundImgLink != null && !newBackgroundImgLink.equals("") && !newBackgroundImgLink.equals(oldCollection.getBackgroundImgLink())) {
+        if (newBackgroundImgLink != null && !newBackgroundImgLink.equals(oldCollection.getBackgroundImgLink())) {
             oldCollection.setBackgroundImgLink(newBackgroundImgLink);
         }
 
         if (newHiddenStatus != null && newHiddenStatus != oldCollection.getHiddenStatus() && newHiddenStatus != HiddenStatus.Default) {
             oldCollection.setHiddenStatus(newHiddenStatus);
+        }
+
+        if (newDescription != null && !newDescription.equals(oldCollection.getDescription())) {
+            oldCollection.setDescription(newDescription);
         }
 
         return collectionRepository.save(oldCollection);
