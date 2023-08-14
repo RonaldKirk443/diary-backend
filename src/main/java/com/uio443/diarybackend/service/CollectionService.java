@@ -1,8 +1,7 @@
 package com.uio443.diarybackend.service;
 
-import Exceptions.CollectionNotFoundException;
-import Exceptions.TitleNotUniqueException;
-import Exceptions.UserNotFoundException;
+import exception.CollectionNotFoundException;
+import exception.UserNotFoundException;
 import com.uio443.diarybackend.enums.HiddenStatus;
 import com.uio443.diarybackend.model.Collection;
 import com.uio443.diarybackend.repository.CollectionRepository;

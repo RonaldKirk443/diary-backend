@@ -2,20 +2,20 @@ package com.uio443.diarybackend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.uio443.diarybackend.enums.HiddenStatus;
-import com.uio443.diarybackend.primarykeys.CollectionUserId;
+import com.uio443.diarybackend.primarykeys.CollectionId;
 import jakarta.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
-@IdClass(CollectionUserId.class)
+//@IdClass(CollectionId.class)
 @Table(name = "collection")
 public class Collection {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
     Long id;
-    @Id
+//    @Id
     @JoinColumn(name = "userId", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
