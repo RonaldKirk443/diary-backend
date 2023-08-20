@@ -26,7 +26,7 @@ public interface EntryRepository extends JpaRepository<Entry, Long> {
     Optional<List<Entry>> findEntriesByCollectionId(Long collectionId);
 
     @Transactional
-    @Query("Select e from Entry e where e.title = ?1")
+    @Query("Select e from Entry e where e.title = ?1 and e.hiddenStatus = 2")
     Optional<List<Entry>> findEntriesByTitle(String title);
 
     @Transactional
@@ -40,5 +40,5 @@ public interface EntryRepository extends JpaRepository<Entry, Long> {
 
     @Transactional
     @Query("SELECT exists(SELECT e from Entry e where e.id = ?1)")
-    boolean existsById(long entryId);
+    boolean existsByEntryId(long entryId);
 }

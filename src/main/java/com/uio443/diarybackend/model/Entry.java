@@ -25,6 +25,7 @@ public class Entry {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User user;
+    @Transient
     private Long collectionId;
     @JoinColumn(name = "collection", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY, optional = true)

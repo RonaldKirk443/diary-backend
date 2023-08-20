@@ -1,7 +1,7 @@
 package com.uio443.diarybackend.service;
 
-import exception.CollectionNotFoundException;
-import exception.UserNotFoundException;
+import com.uio443.diarybackend.exception.CollectionNotFoundException;
+import com.uio443.diarybackend.exception.UserNotFoundException;
 import com.uio443.diarybackend.enums.HiddenStatus;
 import com.uio443.diarybackend.model.Collection;
 import com.uio443.diarybackend.repository.CollectionRepository;
@@ -31,7 +31,9 @@ public class CollectionService {
         if (collection.getDescription() == null) {
             collection.setDescription("");
         }
-        collection.setHiddenStatus(HiddenStatus.Private);
+        if (collection.getHiddenStatus() == HiddenStatus.Default) {
+            collection.setHiddenStatus(HiddenStatus.Private);
+        }
         collection.setBackgroundImgLink("https://a.ppy.sh/12025261?1673568592.jpeg");
         return collectionRepository.save(collection);
     }
@@ -81,7 +83,7 @@ public class CollectionService {
             oldCollection.setBackgroundImgLink(newBackgroundImgLink);
         }
 
-        if (newHiddenStatus != null && newHiddenStatus != oldCollection.getHiddenStatus() && newHiddenStatus != HiddenStatus.Default) {
+        if (newHiddenStatus != oldCollection.getHiddenStatus() && newHiddenStatus != HiddenStatus.Default) {
             oldCollection.setHiddenStatus(newHiddenStatus);
         }
 

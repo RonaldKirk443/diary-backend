@@ -1,8 +1,8 @@
 package com.uio443.diarybackend.service;
 
-import exception.EmailNotUniqueException;
-import exception.UserNotFoundException;
-import exception.UsernameNotUniqueException;
+import com.uio443.diarybackend.exception.EmailNotUniqueException;
+import com.uio443.diarybackend.exception.UserNotFoundException;
+import com.uio443.diarybackend.exception.UsernameNotUniqueException;
 import com.uio443.diarybackend.enums.HiddenStatus;
 import com.uio443.diarybackend.model.User;
 import com.uio443.diarybackend.repository.UserRepository;

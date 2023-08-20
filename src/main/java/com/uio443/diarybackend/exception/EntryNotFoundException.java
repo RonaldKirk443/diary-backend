@@ -1,4 +1,4 @@
-package exception;
+package com.uio443.diarybackend.exception;
 
 public class EntryNotFoundException extends RuntimeException{
 

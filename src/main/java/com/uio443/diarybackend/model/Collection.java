@@ -31,7 +31,7 @@ public class Collection {
 
     public Collection() {
         this.title = null;
-        this.hiddenStatus = null;
+        this.hiddenStatus = HiddenStatus.Default;
         this.backgroundImgLink = null;
         this.description = null;
     }

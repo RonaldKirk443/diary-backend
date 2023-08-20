@@ -1,14 +1,15 @@
 package com.uio443.diarybackend.service;
 
 import com.uio443.diarybackend.enums.HiddenStatus;
+import com.uio443.diarybackend.exception.NotTheFatherException;
 import com.uio443.diarybackend.model.Collection;
 import com.uio443.diarybackend.model.Entry;
 import com.uio443.diarybackend.repository.CollectionRepository;
 import com.uio443.diarybackend.repository.EntryRepository;
 import com.uio443.diarybackend.repository.UserRepository;
-import exception.CollectionNotFoundException;
-import exception.EntryNotFoundException;
-import exception.UserNotFoundException;
+import com.uio443.diarybackend.exception.CollectionNotFoundException;
+import com.uio443.diarybackend.exception.EntryNotFoundException;
+import com.uio443.diarybackend.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Date;
@@ -32,7 +33,7 @@ public class EntryService {
         entry.setUser(userRepository.findUserById(userId).orElseThrow(() -> new UserNotFoundException(userId)));
         if (entry.getCollectionId() != null) {
             Collection collection = collectionRepository.findCollectionById(entry.getCollectionId()).orElseThrow(() -> new CollectionNotFoundException(entry.getCollectionId()));
-            System.out.println(collection.getUser().getUsername());
+            if (!collection.getUser().equals(entry.getUser())) throw new NotTheFatherException(entry.getUser().getId(), collection.getId());
             entry.setCollection(collection);
         }
         if (entry.getTitle() == null) {
@@ -58,17 +59,26 @@ public class EntryService {
 
     public Entry updateEntry(Entry entry) {
         Entry oldEntry = entryRepository.findEntryById(entry.getId()).orElseThrow(() -> new EntryNotFoundException(entry.getId()));
-        if (entry.getCollection() != oldEntry.getCollection()) {
-            oldEntry.setCollection(entry.getCollection());
+        if (entry.getCollectionId() != null) {
+            if (entry.getCollectionId() == 0) {
+                oldEntry.setCollection(null);
+            }
+            else {
+                Collection collection = collectionRepository.findCollectionById(entry.getCollectionId()).orElseThrow(() -> new CollectionNotFoundException(entry.getCollectionId()));
+                if (!collection.getUser().equals(entry.getUser())) throw new NotTheFatherException(entry.getUser().getId(), collection.getId());
+                if (!collection.equals(oldEntry.getCollection())) {
+                    oldEntry.setCollection(collection);
+                }
+            }
         }
         if (entry.getTitle() != null && !entry.getTitle().equals(oldEntry.getTitle())) {
             oldEntry.setTitle(entry.getTitle());
         }
         oldEntry.setEditedDate(new Date());
-        if (!entry.getText().equals(oldEntry.getText())) {
+        if (entry.getText() != null && !entry.getText().equals(oldEntry.getText())) {
             oldEntry.setText(entry.getText());
         }
-        if (!entry.getImages().equals(oldEntry.getImages())) {
+        if (entry.getImages() != null && !entry.getImages().equals(oldEntry.getImages())) {
             oldEntry.setImages(entry.getImages());
         }
         if (entry.getHiddenStatus() != HiddenStatus.Default && entry.getHiddenStatus() != oldEntry.getHiddenStatus()) {
@@ -92,17 +102,18 @@ public class EntryService {
     }
 
     public List<Entry> getAllEntriesByTitle(String title) {
+
         return entryRepository.findEntriesByTitle(title).orElseThrow(() -> new EntryNotFoundException(title));
     }
 
 
     public List<Entry> getAllEntriesByTitleAndUserId(Long userId, String title) {
         if (!userRepository.existsById(userId)) throw new UserNotFoundException(userId);
-        return entryRepository.findEntriesByTitle(title).orElseThrow(() -> new EntryNotFoundException(title));
+        return entryRepository.findEntriesByTitleAndUserId(userId, title).orElseThrow(() -> new EntryNotFoundException(title));
     }
 
     public void deleteEntry(Long entryId) {
-        if (!entryRepository.existsById(entryId)) throw new EntryNotFoundException(entryId);
+        if (!entryRepository.existsByEntryId(entryId)) throw new EntryNotFoundException(entryId);
         entryRepository.deleteEntryById(entryId);
     }
 
