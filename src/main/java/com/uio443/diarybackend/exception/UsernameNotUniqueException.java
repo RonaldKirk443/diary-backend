@@ -1,4 +1,4 @@
-package Exceptions;
+package com.uio443.diarybackend.exception;
 
 public class UsernameNotUniqueException extends RuntimeException{
 
