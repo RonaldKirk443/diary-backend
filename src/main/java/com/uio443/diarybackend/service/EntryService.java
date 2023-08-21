@@ -12,6 +12,8 @@ import com.uio443.diarybackend.exception.EntryNotFoundException;
 import com.uio443.diarybackend.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.io.Console;
 import java.util.Date;
 import java.util.List;
 
@@ -31,7 +33,7 @@ public class EntryService {
 
     public Entry addEntry(Long userId, Entry entry) {
         entry.setUser(userRepository.findUserById(userId).orElseThrow(() -> new UserNotFoundException(userId)));
-        if (entry.getCollectionId() != null) {
+        if (entry.getCollectionId() != null && entry.getCollectionId() != 0) {
             Collection collection = collectionRepository.findCollectionById(entry.getCollectionId()).orElseThrow(() -> new CollectionNotFoundException(entry.getCollectionId()));
             if (!collection.getUser().equals(entry.getUser())) throw new NotTheFatherException(entry.getUser().getId(), collection.getId());
             entry.setCollection(collection);
@@ -65,7 +67,7 @@ public class EntryService {
             }
             else {
                 Collection collection = collectionRepository.findCollectionById(entry.getCollectionId()).orElseThrow(() -> new CollectionNotFoundException(entry.getCollectionId()));
-                if (!collection.getUser().equals(entry.getUser())) throw new NotTheFatherException(entry.getUser().getId(), collection.getId());
+                if (!collection.getUser().equals(oldEntry.getUser())) throw new NotTheFatherException(oldEntry.getUser().getId(), collection.getId());
                 if (!collection.equals(oldEntry.getCollection())) {
                     oldEntry.setCollection(collection);
                 }
