@@ -1,8 +1,6 @@
 package com.uio443.diarybackend.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uio443.diarybackend.enums.HiddenStatus;
 import com.uio443.diarybackend.primarykeys.EntryId;
 import jakarta.persistence.*;
