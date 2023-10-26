@@ -31,7 +31,7 @@ public interface LoginRepository extends JpaRepository<Login, Long> {
     boolean existsById(Long id);
 
     @Transactional
-    @Query("SELECT exists(SELECT l from Login l where l.id = ?1)")
+    @Query("SELECT exists(SELECT l from Login l where l.userId = ?1)")
     boolean existsByUserId(Long id);
 
     @Transactional
