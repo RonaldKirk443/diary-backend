@@ -19,16 +19,17 @@ public class LoginController {
     }
 
     @GetMapping("/getId")
-    public ResponseEntity<Long> getUserById(@RequestBody Login login) {
-        Long userId = loginService.getUserId(login);
+    public ResponseEntity<Long> getUserById(@RequestParam String email, @RequestParam String pass) {
+        Long userId = loginService.getUserId(email, pass);
         if (userId < 0) return new ResponseEntity<>(userId, HttpStatus.UNAUTHORIZED);
         return new ResponseEntity<>(userId, HttpStatus.OK);
     }
 
     @PostMapping("/add")
-    public ResponseEntity<User> addUser(@RequestBody Login login) {
-        loginService.addLogin(login);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<Long> addUser(@RequestBody Login login) {
+        Long userId = loginService.addLogin(login);
+        if (userId < 0) return new ResponseEntity<>(userId, HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(userId, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/delete/{id}")
@@ -39,9 +40,8 @@ public class LoginController {
 
     @PutMapping("/update")
     public ResponseEntity<Integer> updateUser(@RequestBody Login login) {
-        int result = loginService.updateLogin(login);
-        if (result == 0) return new ResponseEntity<>(0, HttpStatus.OK);
-        return new ResponseEntity<>(-2, HttpStatus.UNAUTHORIZED);
+        loginService.updateLogin(login);
+        return new ResponseEntity(0, HttpStatus.OK);
     }
 
 
