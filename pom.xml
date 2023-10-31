@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.uio443</groupId>
     <artifactId>diary-backend</artifactId>
-    <version>0.0.2-BETA</version>
+    <version>1.0-RELEASE</version>
     <name>diary-backend</name>
     <description>diary-backend</description>
     <properties>

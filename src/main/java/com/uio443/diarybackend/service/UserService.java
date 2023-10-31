@@ -35,7 +35,7 @@ public class UserService {
         if (userRepository.existsByUsername(user.getUsername())) throw new UsernameNotUniqueException();
         if (userRepository.existsByEmail(user.getEmail())) throw new EmailNotUniqueException();
 
-        user.setPfpLink("https://a.ppy.sh/12025261?1673568592.jpeg");
+        user.setPfpLink("https://osu.ppy.sh/images/layout/avatar-guest@2x.png");
         user.setHiddenStatus(HiddenStatus.Private);
         return userRepository.save(user);
     }

@@ -54,12 +54,12 @@ public class LoginService {
 
     public void updateLogin(Login login) {
         Login savedLogin = loginRepository.findByUserId(login.getUserId()).orElseThrow(() -> new UserNotFoundException(login.getUserId()));
-        if (login.getEmail()!= null){
+        if (login.getEmail() != null && !login.getEmail().equals("")){
             if (!login.getEmail().equals(savedLogin.getEmail())) {
                 savedLogin.setEmail(login.getEmail());
             }
         }
-        if (login.getPass() != null){
+        if (login.getPass() != null && !login.getPass().equals("")){
             if (login.getOldPass() == null) throw new InvalidPasswordException("Invalid old password");
             String salt = savedLogin.getSalt();
             // Hash login oldPass and compare with savedLogin pass
